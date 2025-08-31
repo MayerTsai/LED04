@@ -19,7 +19,6 @@ void LedDriver::update_led()
   unsigned long duration = get_button_pressed_duration_ms();
   set_command(duration);
   set_led_state();
-  _led.set_led(_led_state);
 }
 
 unsigned long LedDriver::get_button_pressed_duration_ms()
@@ -51,6 +50,8 @@ void LedDriver::set_command(unsigned long duration)
       _command = light_command_t::LIGHT_ON;
     else if (duration < LONG_TIME_MS)
       _command = light_command_t::LIGHT_TOGGLE;
+    else
+      _command = light_command_t::LIGHT_OFF;
   }
 }
 
@@ -77,4 +78,5 @@ void LedDriver::set_led_state()
     }
     break;
   }
+  _led.set_led(_led_state);
 }
