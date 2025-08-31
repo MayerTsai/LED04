@@ -17,7 +17,8 @@ LedDriver::LedDriver(Led &led, Button &sw) : _led(led), _sw(sw),
 void LedDriver::update_led()
 {
   unsigned long duration = get_button_pressed_duration_ms();
-  set_command(duration);
+  if (duration > 0)
+    set_command(duration);
   set_led_state();
 }
 
@@ -25,8 +26,7 @@ unsigned long LedDriver::get_button_pressed_duration_ms()
 {
   unsigned long pressed_duration = 0;
 
-  byte reading = _sw.update();
-  button_state_t new_state = (reading == LOW) ? button_state_t::PRESSED : button_state_t::RELEASED;
+  button_state_t new_state = (_sw.update() == LOW) ? button_state_t::PRESSED : button_state_t::RELEASED;
   if (new_state != _button_state)
   {
     unsigned long now = millis();
@@ -44,15 +44,12 @@ unsigned long LedDriver::get_button_pressed_duration_ms()
 
 void LedDriver::set_command(unsigned long duration)
 {
-  if (duration > 0)
-  {
-    if (duration < SHORT_TIME_MS)
-      _command = light_command_t::LIGHT_ON;
-    else if (duration < LONG_TIME_MS)
-      _command = light_command_t::LIGHT_TOGGLE;
-    else
-      _command = light_command_t::LIGHT_OFF;
-  }
+  if (duration < SHORT_TIME_MS)
+    _command = light_command_t::LIGHT_ON;
+  else if (duration < LONG_TIME_MS)
+    _command = light_command_t::LIGHT_TOGGLE;
+  else
+    _command = light_command_t::LIGHT_OFF;
 }
 
 void LedDriver::set_led_state()
