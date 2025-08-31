@@ -24,8 +24,8 @@ void LedDriver::update_led()
 
 unsigned long LedDriver::get_duration_ms(char *mode = "pressed")
 {
-  unsigned long duration = 0;
-  unsigned long release_duration = 0;
+  unsigned long pressed_duration = 0;
+  unsigned long released_duration = 0;
 
   button_state_t new_state = button_state_t::RELEASED;
   byte reading = _sw.update();
@@ -37,19 +37,19 @@ unsigned long LedDriver::get_duration_ms(char *mode = "pressed")
     _button_state = new_state;
     if (_button_state == button_state_t::PRESSED)
     {
-      release_duration = millis() - _last_button_state_time;
+      released_duration = millis() - _last_button_state_time;
       _last_button_state_time = millis();
     }
     else
     {
-      duration = millis() - _last_button_state_time;
+      pressed_duration = millis() - _last_button_state_time;
       _last_button_state_time = millis();
     }
   }
   if (strcmp(mode, "released"))
-    return release_duration;
+    return released_duration;
   else
-    return duration;
+    return pressed_duration;
 }
 
 void LedDriver::set_command(unsigned long duration)
