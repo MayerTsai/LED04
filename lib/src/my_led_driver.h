@@ -21,7 +21,6 @@ private:
   Led& _led;
   Button& _sw;
 
-  unsigned long _time; // last time
   button_state_t _last_button_state;  
   light_command_t _command;
   unsigned long _last_command_time;

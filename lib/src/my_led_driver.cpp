@@ -9,7 +9,7 @@ LedDriver::LedDriver(Led &led, Button &sw) : _led(led), _sw(sw),
                                              _last_command_time(0),
                                              _last_led_state(LOW)
 {
-  _led.set_led(_last_led_state);
+  update_led();
 }
 
 void LedDriver::update_led()
