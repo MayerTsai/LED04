@@ -11,7 +11,7 @@ private:
 public:
   Button(byte pin);
   ~Button() = default;
-  Button(const Button &) = delete;  // Prevent create copying
+  Button(const Button &) = delete;            // Prevent create copying
   Button &operator=(const Button &) = delete; // Prevent assignment copying
 
   byte update();

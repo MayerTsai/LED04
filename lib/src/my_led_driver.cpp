@@ -1,4 +1,5 @@
 #include "my_led_driver.h"
+#include <string.h>
 
 const unsigned long SHORT_TIME_MS = 500;
 const unsigned long LONG_TIME_MS = 1000;
@@ -23,7 +24,7 @@ void LedDriver::update_led()
 }
 
 unsigned long LedDriver::get_duration_ms(char *mode = "pressed")
-{
+{ // This function is intended to return the duration of either a button press or release.
   unsigned long pressed_duration = 0;
   unsigned long released_duration = 0;
 
@@ -46,7 +47,7 @@ unsigned long LedDriver::get_duration_ms(char *mode = "pressed")
       _last_button_state_time = millis();
     }
   }
-  if (strcmp(mode, "released"))
+  if (strcmp(mode, "released") == 0)
     return released_duration;
   else
     return pressed_duration;

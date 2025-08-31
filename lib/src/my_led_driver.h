@@ -29,6 +29,8 @@ private:
   byte _led_state;
   unsigned long _last_blinking_time;
 
+  // Consider using an enum or const char* instead of std::string for 'mode'
+  // to avoid dynamic memory allocation on embedded systems.
   unsigned long get_duration_ms(char *mode);
   void set_command(unsigned long duration);
   void set_led_state();
