@@ -25,6 +25,8 @@ private:
   light_command_t _command;
   unsigned long _last_command_time;
   byte _last_led_state;
+  unsigned long _last_blinking_time;
+
 
 public:
   LedDriver(Led &led, Button &sw);
