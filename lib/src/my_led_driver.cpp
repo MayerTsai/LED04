@@ -25,7 +25,7 @@ void LedDriver::update_led()
   {
     _last_button_state = new_state;
     if (_last_button_state == PRESSED)
-      _last_command_time == millis();
+      _last_command_time = millis();
     else
       duration = millis() - _last_command_time;
   }
