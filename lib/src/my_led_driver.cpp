@@ -6,7 +6,7 @@ const unsigned long BLINKING_TIME_MS = 500;
 
 LedDriver::LedDriver(Led &led, Button &sw) : _led(led), _sw(sw),
                                              _button_state(button_state_t::PRESSED),
-                                             _last_button_state_time(0),
+                                             _last_button_state_time(millis()),
                                              _command(light_command_t::LIGHT_OFF),
                                              _led_state(LOW),
                                              _last_blinking_time(0)
