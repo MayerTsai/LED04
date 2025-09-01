@@ -29,7 +29,7 @@ private:
   byte _led_state;
   unsigned long _last_blinking_time;
 
-  unsigned long get_button_pressed_duration_ms();
+  unsigned long get_button_pressed_duration_ms(char mode[] = "pressed");
   void set_command(unsigned long duration);
   void set_led_state();
 

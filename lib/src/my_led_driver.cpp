@@ -22,24 +22,26 @@ void LedDriver::update_led()
   set_led_state();
 }
 
-unsigned long LedDriver::get_button_pressed_duration_ms()
+unsigned long LedDriver::get_button_pressed_duration_ms(char mode[])
 {
   unsigned long pressed_duration = 0;
+  unsigned long released_duration = 0;
 
   button_state_t new_state = (_sw.update() == LOW) ? button_state_t::PRESSED : button_state_t::RELEASED;
   if (new_state != _button_state)
   {
     unsigned long now = millis();
     if (_button_state == button_state_t::PRESSED)
-      _last_button_state_time = now;
+      released_duration = now - _last_button_state_time;
     else
-    {
       pressed_duration = now - _last_button_state_time;
-      _last_button_state_time = 0;
-    }
+    _last_button_state_time = now;
     _button_state = new_state;
   }
-  return pressed_duration;
+  if (strcmp(mode, "released") == 0)
+    return released_duration;
+  if (strcmp(mode, "pressed") == 0)
+    return pressed_duration;
 }
 
 void LedDriver::set_command(unsigned long duration)
