@@ -9,12 +9,10 @@ private:
   byte pin;
 
 public:
-  Led(byte pin);  
+  Led(byte pin);
   ~Led() = default;
-  // Prevent copying
-  Led(const Led &) = delete;
-  Led &operator=(const Led &) = delete;
-
+  Led(const Led &) = delete;            // prevent from create copying
+  Led &operator=(const Led &) = delete; // prevent from assignment copying
 
   void set_led(byte state);
   void on();
